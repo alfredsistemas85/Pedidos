@@ -26,11 +26,14 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     encoded_jwt = jwt.encode(to_encode, settings.jwt_secret, algorithm=ALGORITHM)
     return encoded_jwt
 
+from app.core.logger import logger
+
 def decode_access_token(token: str) -> dict:
     try:
         decoded_data = jwt.decode(token, settings.jwt_secret, algorithms=[ALGORITHM])
         return decoded_data
-    except jwt.PyJWTError:
+    except Exception as e:
+        logger.error(f"Fallo al decodificar JWT local: {type(e).__name__} - {str(e)}")
         return None
 
 def require_role(allowed_roles: list[str]):
