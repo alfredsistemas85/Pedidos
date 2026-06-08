@@ -1,0 +1,10 @@
+# Ignorar configuraciones secretas
+.env
+evolution-api/.env
+backend/.env
+frontend/.env
+postgres_data/
+
+# Ignorar otras carpetas innecesarias de Node/Docker (por si acaso)
+node_modules/
+.docker/
