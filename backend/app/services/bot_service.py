@@ -38,6 +38,10 @@ class BotService:
         try:
             # Simplificación estructural del payload real de Evolution API
             data = payload.get("data", {})
+            from_me = data.get("key", {}).get("fromMe", False)
+            if from_me:
+                return # Ignorar mensajes enviados por el propio bot
+                
             remote_jid = data.get("key", {}).get("remoteJid", "")
             if not remote_jid or "@s.whatsapp.net" not in remote_jid:
                 return # Ignorar mensajes de grupos o malformados
